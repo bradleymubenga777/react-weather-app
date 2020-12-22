@@ -12,7 +12,8 @@ class App extends React.Component
     },
     data: {
 
-    }
+    },
+    inputData: ""
   }
   componentDidMount()
   {
@@ -54,11 +55,17 @@ class App extends React.Component
     }
   }
 
+  //Track input Feild
+  change = (e) => {
+    e.preventDefault();
+    
+  }
+
   render()
   {
     return(
       <div className="App">
-        <DisplayWeather weatherData={this.state.data}/>
+        <DisplayWeather weatherData={this.state.data} changeRegion={this.change}/>
       </div>
     );
   }
