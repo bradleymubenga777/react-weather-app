@@ -1,71 +1,93 @@
 import React from 'react';
-import axios from 'axios';
+import WeatherApp from './components/weatherApp'
+import SearchLocation from './components/searchLocation'
 import './main.css';
-import DisplayWeather from './components/DisplayWeather'
+import Axios from 'axios';
 
-class App extends React.Component
-{  
+class App extends React.Component {
+
+  //state
   state = {
-    coords:{
-      latitude: 0,
-      longitude: 0
+    userPosition: {
+      latitude: 35,
+      longitude: 139
     },
-    data: {
-
-    },
-    inputData: ""
+    weather: {},
+    regionInput: ""
   }
-  componentDidMount()
-  {
-    //get device loation
-    if (navigator.geolocation) //Check if navigation is supported
-    {
-      navigator.geolocation.getCurrentPosition((position) => {
-        let newCoords = 
-        {
+
+  componentDidMount() {
+    //check whether geolocation is supported
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+
+        //get the lat and long of your device
+        let pos = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
 
-        this.setState({coords: newCoords});
+        this.setState({ userPosition: pos });
 
-        //API Call
-        axios.get(`http://api.weatherstack.com/current?access_key=b9387a127f3551dc85b4cb0ea944d14b&query=${this.state.coords.latitude},${this.state.coords.longitude}`).then(res => {
-          let weatherData =
-          {
-            location: res.data.location.name,
-            country: res.data.location.country,
-            region: res.data.location.region,
-            cloudCover: res.data.current.cloudcover,
-            feelsLike: res.data.current.feelslike,
+        //Weather Api call
+        Axios.get(`http://api.weatherstack.com/current?access_key=ee2c00a09ba65e4467143d28625d3fa2&query=${this.state.userPosition.latitude},${this.state.userPosition.longitude}`).then(res => {
+
+          let userWeather = {
             temperature: res.data.current.temperature,
-            img: res.data.current.weather_code,
-            weatherDescription: res.data.current.weather_descriptions[0],
-            windSpeed: res.data.current.wind_speed
+            description: res.data.current.weather_descriptions[0],
+            location: res.data.location.name,
+            region: res.data.location.region,
+            country: res.data.location.country,
+            wind_speed: res.data.current.wind_speed,
+            pressure: res.data.current.pressure,
+            precip: res.data.current.precip,
+            humidity: res.data.current.humidity,
+            img: res.data.current.weather_icons
           }
 
-          this.setState({data: weatherData})
+          this.setState({ weather: userWeather });
         })
       })
     }
-
-    else
-    {
-
-    }
   }
 
-  //Track input Feild
-  change = (e) => {
-    e.preventDefault();
-    
+  //update the value of the the input field with state
+  changeRegion = (value) => {
+    this.setState({ regionInput: value })
   }
 
-  render()
-  {
-    return(
+  //update the weather depending upon the value user entered
+  changeLocation = (e) => {
+
+    e.preventDefault()
+
+    Axios.get(`http://api.weatherstack.com/current?access_key=ee2c00a09ba65e4467143d28625d3fa2&query=${this.state.regionInput}`).then(res => {
+
+      let userWeather = {
+        temperature: res.data.current.temperature,
+        description: res.data.current.weather_descriptions[0],
+        location: res.data.location.name,
+        region: res.data.location.region,
+        country: res.data.location.country,
+        wind_speed: res.data.current.wind_speed,
+        pressure: res.data.current.pressure,
+        precip: res.data.current.precip,
+        humidity: res.data.current.humidity,
+        img: res.data.current.weather_icons
+      }
+
+      this.setState({ weather: userWeather });
+
+    })
+  }
+
+  render() {
+    return (
       <div className="App">
-        <DisplayWeather weatherData={this.state.data} changeRegion={this.change}/>
+        <div className="container">
+          <SearchLocation changeRegion={this.changeRegion} changeLocation={this.changeLocation} />
+          <WeatherApp weather={this.state.weather} />
+        </div>
       </div>
     );
   }
