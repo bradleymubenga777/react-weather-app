@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherApp from './components/weatherApp'
+import BasicWeather from './components/basicWeather.component'
 import SearchLocation from './components/searchLocation'
 import './main.css';
 import Axios from 'axios';
@@ -84,9 +84,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="container">
-          <SearchLocation changeRegion={this.changeRegion} changeLocation={this.changeLocation} />
-          <WeatherApp weather={this.state.weather} />
+        <div>
+            <BasicWeather weather={this.state.weather} />
+            <SearchLocation changeRegion={this.changeRegion} changeLocation={this.changeLocation} />
         </div>
       </div>
     );
