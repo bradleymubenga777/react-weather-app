@@ -1,7 +1,6 @@
 import React from 'react';
 import BasicWeather from './components/basicWeather.component'
 import SearchLocation from './components/searchLocation'
-import './main.css';
 import Axios from 'axios';
 
 class App extends React.Component {

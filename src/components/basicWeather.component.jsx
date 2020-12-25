@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchLocation from './searchLocation'
 import WeatherHighlights from './weatherHighlights.components'
-import '../main.css';
 import image from '../img/Shower.png'
 
 export default function BasicWeather(props) {
