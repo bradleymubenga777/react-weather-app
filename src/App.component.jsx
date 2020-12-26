@@ -40,8 +40,8 @@ class App extends React.Component {
             wind_speed: res.data.current.wind_speed,
             pressure: res.data.current.pressure,
             precip: res.data.current.precip,
+            weatherCode: res.data.current.weather_code,
             humidity: res.data.current.humidity,
-            img: res.data.current.weather_icons
           }
 
           this.setState({ weather: userWeather });
@@ -71,9 +71,11 @@ class App extends React.Component {
         wind_speed: res.data.current.wind_speed,
         pressure: res.data.current.pressure,
         precip: res.data.current.precip,
+        weatherCode: res.data.current.weather_code,
         humidity: res.data.current.humidity,
-        img: res.data.current.weather_icons
       }
+      
+      console.log(res.data)
 
       this.setState({ weather: userWeather });
 
@@ -82,7 +84,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App center">
         <div>
             <BasicWeather weather={this.state.weather} />
             <SearchLocation changeRegion={this.changeRegion} changeLocation={this.changeLocation} />

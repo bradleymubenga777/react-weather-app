@@ -1,10 +1,13 @@
 import React from 'react'
-export default function weatherHighlights(props) {
+import '../index.css';
 
+
+export default function weatherHighlights(props) {
+    
     return (
         <div className="col-lg-8 col-lg-8">
-            <div className="container">
-                <div className="basicWeather d-flex justify-content-center flex-wrap">
+            <div className="">
+                <div className="flex-items">
                         <div className="p-3">
                             <p><b>Wind Speed</b>(km/hr)</p>
                             <h2>{props.weather.wind_speed}</h2>

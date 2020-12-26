@@ -6,9 +6,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background-color: rgb(38, 10, 161);
+  color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.flex-items{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.p-3{
+  padding: 1rem;
+}
+
+.center{
+  text-align: center;
+}
+
+.paddingBottom{
+  padding-bottom: 2rem;
 }
